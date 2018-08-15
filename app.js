@@ -77,7 +77,7 @@ app.use('/admin/comments',comments)
 app.use('/userdash',userDash)
 app.use('/userdash/posts',userDashposts);
 app.use('/userdash/comments',userDashcomments)
-const port=process.env.PORT || 4500;
+const port=process.env.PORT || 3000;
 app.listen(port,()=>{
-    console.log('Connected');
+    console.log(`Connected on port ${port}`);
 })

@@ -4,6 +4,7 @@ const Post = require('../../models/Post');
 const Category = require('../../models/Category');
 const { isEmpty, uploadDir } = require('../../helpers/upload-helper')
 const fs = require('fs');
+var randomstring = require("randomstring");
 
 router.all('/*', (req, res, next) => {
 
@@ -45,8 +46,8 @@ router.post('/create', (req, res) => {
     let filename = '';
     if (!isEmpty(req.files)) {
 
-        let file = req.files.file;
-        filename = Date.now() + '.' + file.name;
+        
+        filename = randomstring.generate(10);
         const dirUploads = './public/uploads/';
 
         file.mv(dirUploads + filename, (err) => {
