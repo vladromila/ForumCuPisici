@@ -1,0 +1,41 @@
+<h1>Categories</h1>
+{{>home/form-msgs}}
+<div class="row">
+    <div class="col-sm-4">
+        <form action="/admin/categories/create" method="post">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" placeholder="Enter a new category">
+            </div>
+            <button class="btn btn-dark" type="submit">Add Category</button>
+        </form>
+    </div>
+</div>
+<table class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Edit?</th>
+            <th>Delete?</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {{#each posts}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{name}}</td>
+            <td>
+                <a class="btn btn-success" href="/admin/categories/edit/{{id}}">Edit</a>
+            </td>
+            <td>
+                <form action="/admin/categories/delete/{{id}}?_method=DELETE" method="post">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
