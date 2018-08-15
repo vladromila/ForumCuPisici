@@ -9,7 +9,7 @@ const upload=require('express-fileupload');
 const session=require('express-session');
 const flash=require('connect-flash');
 const {select,generateDate,fieldChecker,ifer}=require('./helpers/handelbars-helper.js');
-const {mongoDbUrl}=require('./config/databse.js');
+const {mongoDbUrl}=require('./config/database.js');
 const passport=require('passport');
 
 mongoose.connect(mongoDbUrl,{ useNewUrlParser: true })
