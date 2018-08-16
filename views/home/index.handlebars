@@ -4,7 +4,7 @@
         <div class="col-md-8">
 
           <h1 class="my-4">Posts
-            <small>/Category</small>
+            <small>{{#if category}}/Category{{/if}}</small>
           </h1>
 {{#each posts}}
 <!-- Blog Post -->
@@ -18,7 +18,7 @@
             </div>
             <div class="card-footer text-muted">
               Posted on {{generateDate date 'MMM-Do-YYYY HH:mm:ss '}} by
-              <a href="#">{{user.firstName}}</a>
+              <a href="/profile/{{user.id}}">{{user.firstName}}</a>
             </div>
           </div>
 {{/each}}
@@ -61,7 +61,7 @@
                   <ul class="list-unstyled mb-0">
                     
                     <li>
-                      <a href="#">{{name}}</a>
+                      <a href="/category/{{id}}">{{name}}</a>
                     </li>
                     
                   </ul>

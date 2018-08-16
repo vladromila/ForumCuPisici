@@ -45,6 +45,10 @@ const UserSchema = new Schema({
         default:false
 
     },
+    about:{
+        type: String,
+        default:''
+    }
 
 
 

@@ -1,4 +1,19 @@
  <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePosts" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-wrench"></i>
+            <span class="nav-link-text">Profile</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapsePosts">
+            <li>
+              <a href="/userdash/profile/{{user.id}}">My Profile</a>
+            </li>
+            <li>
+              <a href="/userdash/profile/edit/{{user.id}}">Edit Profile</a>
+            </li>
+
+          </ul>
+        </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePosts" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-wrench"></i>

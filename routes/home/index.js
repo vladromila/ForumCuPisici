@@ -29,6 +29,24 @@ router.get('/', (req, res) => {
     }).catch(err => console.log(err))
 
 })
+
+router.get('/category/:id', (req, res) => {
+    let checker = false;
+    if (req.user === undefined)
+        checker = false;
+    else
+        if (req.user.isAdmin === false)
+            checker = false;
+        else
+            checker = true;
+    Post.find({category:req.params.id}).populate('user').then(posts => {
+        Category.find({}).then(categories => {
+            res.render('home/index', { posts: posts, categories: categories,checker:checker });
+        })
+
+    }).catch(err => console.log(err))
+
+})
 router.get('/post/:id', (req, res) => {
 
     Post.findOne({ _id: req.params.id })
@@ -182,4 +200,5 @@ router.get('/profile/:id', (req, res) => {
     })
 
 })
+
 module.exports = router;

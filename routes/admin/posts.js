@@ -5,7 +5,7 @@ const Category = require('../../models/Category');
 const { isEmpty, uploadDir } = require('../../helpers/upload-helper')
 const fs = require('fs');
 const randomstring = require("randomstring");
-
+const Jimp = require('jimp');
 router.all('/*', (req, res, next) => {
 
     req.app.locals.layout = 'admin'
@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 })
 router.get('/myposts', (req, res) => {
 
-    Post.find({user:req.user.id}).populate('category').then(posts => {
+    Post.find({ user: req.user.id }).populate('category').then(posts => {
         res.render('admin/posts/index', { posts: posts });
     }).catch(err => console.log(err))
 
@@ -53,8 +53,17 @@ router.post('/create', (req, res) => {
         file.mv(dirUploads + filename, (err) => {
             if (err)
                 throw err;
+           
         }
         )
+        Jimp.read(`./public/uploads/${filename}`)
+                    .then(image => {
+                        image.resize(Jimp.AUTO, 250); // resize the height to 250 and scale the width accordingly
+
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
     }
     let allowComments = true;
     if (req.body.allowComments) {
@@ -63,7 +72,7 @@ router.post('/create', (req, res) => {
         allowComments = false;
     }
     const newPost = new Post({
-        user:req.user.id,
+        user: req.user.id,
         category: req.body.category,
         title: req.body.title,
         status: req.body.status,
@@ -112,14 +121,14 @@ router.put('/edit/:id', (req, res) => {
                 allowComments = true;
             } else {
                 allowComments = false;
-            } 
-            post.category=req.body.category;
+            }
+            post.category = req.body.category;
             post.title = req.body.title;
             post.status = req.body.status;
             post.allowComments = allowComments;
             post.body = req.body.body;
-           
-let filename='';
+
+            let filename = '';
             if (!isEmpty(req.files)) {
 
                 let file = req.files.file;
@@ -143,12 +152,12 @@ let filename='';
 router.delete('/delete/:id', (req, res) => {
     Post.findOne({ _id: req.params.id }).populate('comments').then(post => {
         fs.unlink(uploadDir + post.file, (err) => {
-if(!post.comments.length<1)
-{post.comments.forEach(comment => {
-    comment.remove();
-});
-    
-}
+            if (!post.comments.length < 1) {
+                post.comments.forEach(comment => {
+                    comment.remove();
+                });
+
+            }
             post.remove();
             console.log(err);
         })
